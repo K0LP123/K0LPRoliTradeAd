@@ -16,7 +16,7 @@ RequestedItems = [20573078,20573078,20573078,20573078] #Remember that total of t
 PlayerId = 1067821187 #change it to yours
 Tags=["upgrade", "downgrade", "demand", "robux"]
    #"adds", "upgrade", "downgrade", "any", "wishlist", "demand", "rares", "rap", "robux", "projecteds"
-Time=1470 #1470 seconds is 24 minutes and 30 seconds. Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
+Time=1500 #1500 seconds is 25 minutes. (57,6 trade ads a day) Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
 #CONFIG
 #CONFIG
 
