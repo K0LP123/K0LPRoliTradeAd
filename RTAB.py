@@ -9,11 +9,11 @@ from datetime import datetime, timedelta
 
 #CONFIG
 #CONFIG
-RolimonsToken = 'Paste your _RoliVerification= cookie here'
+RolimonsToken = 'Paste your _RoliVerification= here'
 Robux = 0
-OfferedItems = [1,2,3,4]
-RequestedItems = [1,2,3,4] #Remember that tags also use slots in requests in trade ads!
-PlayerId = 1067821187
+OfferedItems = [21070012,21070012,21070012,21070012]
+RequestedItems = [20573078,20573078,20573078,20573078] #Remember that total of tags and requested items can be 4! 
+PlayerId = 1067821187 #change it to yours
 Tags=["upgrade", "downgrade", "demand", "robux"]
    #"adds", "upgrade", "downgrade", "any", "wishlist", "demand", "rares", "rap", "robux", "projecteds"
 Time=1470 #1470 seconds is 24 minutes and 30 seconds. Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
@@ -69,7 +69,7 @@ while True:
 
         now = datetime.now()
         future_time = now + timedelta(seconds=Time)
-        print("🕒 Next Trade Ad will be posted in:", Time / 60, "minutes", "Aka:", future_time.strftime("%H:%M")"\n")
+        print("🕒 Next Trade Ad will be posted in:", Time / 60, "minutes", "Aka:", future_time.strftime("%H:%M"),"\n")
     
     elif res_TA.get("code") == 7105:
         print("⏳ Ad creation cooldown has not elapsed ⏳")
@@ -95,7 +95,7 @@ while True:
 
     elif res_TA.get("code") == 7112:
         print("❌ Invalid Roblox User ID! ❌")
-        
+
     else:
         print("❌ Something is not working! ❌")
         print("❌ Error message: ", res_TA.get("message"))
