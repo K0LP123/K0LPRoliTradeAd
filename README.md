@@ -1,5 +1,5 @@
 <h1>Rolimons Trade Ad Bot</h1>
-Rolimon Trade Ad made in Python by me. <br>
+Made in Python by me <br>
 <h3>You need to download:<br></h3>
 -Python<br>
 -requests library (pip install requests)<br>
