@@ -10,4 +10,4 @@ https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfdd
 <br>On Rolimons website open it and copy your _RoliVerification=
 <img width="630" height="520" alt="image" src="https://github.com/user-attachments/assets/6465d6bf-9419-4f29-9a1c-83dccfca714f" /><br>
 
-If i wont be too lazy I maybe will add a option to just pick your top 4 most valuable items that arent on hold and arent nft 🤑
+<h3>If Rolimon adds a option to see which items are NFT and which arent and I wont be lazy expect a update where I will add a option automatically pick your top 4 most valuable items that arent on hold and arent nft 🤑</h3>
