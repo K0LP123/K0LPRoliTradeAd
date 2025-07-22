@@ -69,9 +69,8 @@ while True:
 
         now = datetime.now()
         future_time = now + timedelta(seconds=Time)
-        print("🕒 Next Trade Ad will be posted in:", Time / 60, "minutes", "Aka:", future_time.strftime("%H:%M"))
+        print("🕒 Next Trade Ad will be posted in:", Time / 60, "minutes", "Aka:", future_time.strftime("%H:%M")"\n")
     
-
     elif res_TA.get("code") == 7105:
         print("⏳ Ad creation cooldown has not elapsed ⏳")
 
