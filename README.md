@@ -1,6 +1,6 @@
 <h1>Rolimons Trade Ad Bot</h1>
 Made in Python by me <br>
-<h2>Made it to be running locally on your computer. I have no idea how this will work using any hosters.</h2><br>
+<h2>Made it to be running locally on your computer. I have no idea how this will work using any hosters.</h2>
 <h3>You need to download:<br></h3>
 -Python<br>
 -requests library (pip install requests)<br>
