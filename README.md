@@ -1,5 +1,4 @@
 <h1>Rolimons Trade Ad script</h1>
-Example:
 <img width="744" height="261"src="https://github.com/user-attachments/assets/39160fcc-0dd4-4908-bcfa-9792c25e2c5c" /><br>
 Made in Python by me <br>
 <h2>Made it to be running locally on your computer. I have no idea how this will work using any hosters.</h2>
