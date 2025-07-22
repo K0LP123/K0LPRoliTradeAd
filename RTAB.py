@@ -96,6 +96,9 @@ while True:
     elif res_TA.get("code") == 7112:
         print("❌ Invalid Roblox User ID! ❌")
 
+    elif res_TA.get("code") == 14:
+        print("❌ 24-hour ad creation limit has been hit! ❌")
+
     else:
         print("❌ Something is not working! ❌")
         print("❌ Error message: ", res_TA.get("message"))
