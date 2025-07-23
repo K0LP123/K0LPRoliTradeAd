@@ -10,17 +10,18 @@ from datetime import datetime, timedelta
 #CONFIG
 #CONFIG
 RolimonsToken = 'Paste your _RoliVerification= here'
+
 #AutoPick
 AutoPick = True #True/False -- Picks top 4 of your items
-NotForTrade = [123456789,123456789] #Items that wont appear in Trade Ads if you use AutoPick
+NotForTrade = [21070012,21070012,21070012] #Items that wont appear in Trade Ads if you use AutoPick
 
 #Manually set your items
-OfferedItems = [123456789,123456789] 
+OfferedItems = []
 
 #Trade Ad options
-Robux = 0
-RequestedItems = [123456789,123456789]
-PlayerId = 1067821187 
+Robux = 67893
+RequestedItems = [] 
+PlayerId = 1067821187
 Tags=["upgrade", "downgrade", "demand", "robux"]
    #"adds", "upgrade", "downgrade", "any", "wishlist", "demand", "rares", "rap", "robux", "projecteds"
 
@@ -55,39 +56,41 @@ headers = {
 }
 
 
-Nothold=[]
-item_values=[]
-
-dataIH = res_PI.get("data", [])
-for itemHOLD in dataIH:
-    ItemID = itemHOLD.get("assetId")
-    if itemHOLD.get("isOnHold") is False:
-        Nothold.append(ItemID)
-
-for item in Nothold:
-    if item in NotForTrade:
-        continue
-    item_str = str(item)
-    item_data = res_IL["items"].get(item_str)
-    if item_data:
-        value=item_data[4]
-        item_values.append((item, value))
-FinalList = sorted(item_values, key=lambda x: x[1], reverse=True)[:4]
-FinalList = [item_id for item_id, _ in FinalList]
-
-dataAuto = {
-    "offer_item_ids": FinalList,
-    "offer_robux": Robux,
-    "player_id": PlayerId,
-    "request_item_ids": RequestedItems,
-    "request_tags": Tags
-}
-
 while True:
     if AutoPick == True:
-        responseTA = requests.post(urlTA, json=dataAuto, headers=headers)
+
+        Nothold=[]
+        item_values=[]
+
+        dataIH = res_PI.get("data", [])
+        for itemHOLD in dataIH:
+            ItemID = itemHOLD.get("assetId")
+            if itemHOLD.get("isOnHold") is False:
+                Nothold.append(ItemID)
+
+        for item in Nothold:
+            if item in NotForTrade:
+                continue
+            item_str = str(item)
+            item_data = res_IL["items"].get(item_str)
+            if item_data:
+                value=item_data[4]
+                item_values.append((item, value))
+        AutopickFinalList = sorted(item_values, key=lambda x: x[1], reverse=True)[:4]
+        AutopickFinalList = [item_id for item_id, _ in AutopickFinalList]
+
+        dataAuto = {
+            "offer_item_ids": AutopickFinalList,
+            "offer_robux": Robux,
+            "player_id": PlayerId,
+            "request_item_ids": RequestedItems,
+            "request_tags": Tags
+        }
+
+        responseTA = requests.post(urlTA, json=dataAuto, headers=headers)            
         print("🤖 Auto Pick! 🤖")
-    else:
+
+    if AutoPick == False:
         responseTA = requests.post(urlTA, json=data, headers=headers)
 
     res_TA = responseTA.json()
@@ -96,10 +99,11 @@ while True:
         print("💲 Offered Robux:", Robux)
         TotalValue = 0
         TotalRap = 0
+        responseIL = requests.get(urlIL)
+        res_IL = responseIL.json()
+        item_details = []
+
         if AutoPick == False:
-            responseIL = requests.get(urlIL)
-            res_IL = responseIL.json()
-            item_details = []
             for item_id in OfferedItems:
                 item_str = str(item_id)
                 item_data = res_IL["items"].get(item_str)
@@ -110,11 +114,9 @@ while True:
                         item_details.append(f"- {item_data[0]} Item Value: {item_data[4]}")
                     else:
                         item_details.append(f"- ({item_data[1]}) {item_data[0]}. Item Value: {item_data[4]}")
+
         if AutoPick == True:
-            responseIL = requests.get(urlIL)
-            res_IL = responseIL.json()
-            item_details = []
-            for item_id in FinalList:
+            for item_id in AutopickFinalList:
                 item_str = str(item_id)
                 item_data = res_IL["items"].get(item_str)
                 if item_data:
@@ -162,6 +164,9 @@ while True:
 
     elif res_TA.get("code") == 14:
         print("❌ 24-hour ad creation limit has been hit! ❌")
+        
+    elif res_TA.get("code") == 7104:
+        print("❌ Player does not own all offered items! ❌")
 
     else:
         print("❌ Something is not working! ❌")
