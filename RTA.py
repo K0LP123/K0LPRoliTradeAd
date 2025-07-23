@@ -26,7 +26,7 @@ Tags=["upgrade", "downgrade", "demand", "robux"]
    #"adds", "upgrade", "downgrade", "any", "wishlist", "demand", "rares", "rap", "robux", "projecteds"
 
 #Time
-Time=1500 #1500 seconds is 25 minutes. (57,6 trade ads a day) Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
+Time=1500 #1500 seconds is 25 minutes (57,6 trade ads a day). Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
 
 #CONFIG
 #CONFIG
