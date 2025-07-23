@@ -4,7 +4,6 @@ Made in Python by me <br>
 <h1>Has 2 modes:</h1>
 🦾 Auto pick (Automatically picks top 4 of your items that arent in NotForTrade config)<br>
 💪 Manual pick (You pick your items)<br>
-<h2>Made it to be running locally on your computer. I have no idea how this will work using any hosters.</h2>
 <h3>You need to download:<br></h3>
 -Python<br>
 -requests library (pip install requests)<br>
