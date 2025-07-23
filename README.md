@@ -7,7 +7,7 @@ Made in Python by me <br>
 <h3>You need to download:<br></h3>
 -Python<br>
 -requests library (pip install requests)<br>
-<h2❗>Before using it set your Rolimon Token and configure the config❗<br></h2>
+<h2❗>Before using it set your Rolimon Token and configure the config❗</h2> <br>
 To get your _RoliVerification= you need Cookie editor addon like this: <br>
 https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm <br>
 <br>On Rolimons website open it and copy your _RoliVerification=
