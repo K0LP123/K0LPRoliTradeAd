@@ -13,20 +13,20 @@ RolimonsToken = 'Paste your _RoliVerification= here'
 
 #AutoPick
 AutoPick = True #True/False -- Picks top 4 of your items
-NotForTrade = [21070012,21070012,21070012] #Items that wont appear in Trade Ads if you use AutoPick
+NotForTrade = [76233968067050,114706745345742,87714679176829,507783603,99742784495587,13753760092,82601882965079,112278583934553,127238392608990] #Items that wont appear in Trade Ads if you use AutoPick
 
 #Manually set your items
 OfferedItems = []
 
 #Trade Ad options
 Robux = 67893
-RequestedItems = [] 
+RequestedItems = []
 PlayerId = 1067821187
 Tags=["upgrade", "downgrade", "demand", "robux"]
    #"adds", "upgrade", "downgrade", "any", "wishlist", "demand", "rares", "rap", "robux", "projecteds"
 
 #Time
-Time=1500 #1500 seconds is 25 minutes (57,6 trade ads a day). Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
+Time=1500 #1500 seconds is 25 minutes. (57,6 trade ads a day) Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
 
 #CONFIG
 #CONFIG
@@ -35,11 +35,8 @@ urlTA = 'https://api.rolimons.com/tradeads/v1/createad'
 urlIL = 'https://api.rolimons.com/items/v2/itemdetails'
 urlPI = f'https://inventory.roblox.com/v1/users/{PlayerId}/assets/collectibles?limit=100&sortOrder=Asc'
 
-responseIL = requests.get(urlIL)
 responsePI = requests.get(urlPI)
-
 res_PI = responsePI.json()
-res_IL = responseIL.json()
 
 
 data = {
@@ -57,6 +54,8 @@ headers = {
 
 
 while True:
+    responseIL = requests.get(urlIL)
+    res_IL = responseIL.json()
     if AutoPick == True:
 
         Nothold=[]
@@ -147,11 +146,18 @@ while True:
     elif res_TA.get("code") == 7110:
         TotalRap = 0
         res_IL = requests.get(urlIL).json()
-        for item_id in OfferedItems:
-            item_str = str(item_id)
-            item_data = res_IL["items"].get(item_str)
-            if item_data:
-                TotalRap += item_data[2]
+        if AutoPick == False:
+            for item_id in OfferedItems:
+                item_str = str(item_id)
+                item_data = res_IL["items"].get(item_str)
+                if item_data:
+                    TotalRap += item_data[2]
+        if AutoPick == True:
+            for item_id in AutopickFinalList:
+                item_str = str(item_id)
+                item_data = res_IL["items"].get(item_str)
+                if item_data:
+                    TotalRap += item_data[2]
 
         print("❌ Change your Robux! Robux number can't exceed 50% RAP ❌")
         print(f"📊 50% of Total RAP: {round(TotalRap/2)}")
