@@ -13,7 +13,7 @@ RolimonsToken = 'Paste your _RoliVerification= here'
 
 #AutoPick
 AutoPick = True #True/False -- Picks top 4 of your items
-NotForTrade = [76233968067050,114706745345742,87714679176829,507783603,99742784495587,13753760092,82601882965079,112278583934553,127238392608990] #Items that wont appear in Trade Ads if you use AutoPick
+NotForTrade = [21070012,21070012,21070012] #Items that wont appear in Trade Ads if you use AutoPick
 
 #Manually set your items
 OfferedItems = []
@@ -26,7 +26,7 @@ Tags=["upgrade", "downgrade", "demand", "robux"]
    #"adds", "upgrade", "downgrade", "any", "wishlist", "demand", "rares", "rap", "robux", "projecteds"
 
 #Time
-Time=1500 #1500 seconds is 25 minutes. (57,6 trade ads a day) Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
+Time=1500 #1500 seconds is 25 minutes (57,6 trade ads a day). Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
 
 #CONFIG
 #CONFIG
