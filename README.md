@@ -1,4 +1,5 @@
 <h1>Rolimons Trade Ad script</h1>
+<h2>THIS PROJECT IS CURRENTLY WORKED ON. IF YOU DOWNLOAD IT PLZ CHECK THIS GITHUB PAGE IN A WEEK OR MORE C:</h2>
 <img width="700" height="250"src="https://github.com/user-attachments/assets/39160fcc-0dd4-4908-bcfa-9792c25e2c5c" /><br>
 <h1>Has 2 modes:</h1>
 🦾 Auto pick (Automatically picks top 4 of your items that arent in NotForTrade config)<br>
