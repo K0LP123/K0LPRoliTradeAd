@@ -31,6 +31,7 @@ Time=1500 #1500 seconds is 25 minutes (57,6 trade ads a day). Everyday you can p
 #CONFIG
 #CONFIG
 
+
 urlTA = 'https://api.rolimons.com/tradeads/v1/createad'
 urlIL = 'https://api.rolimons.com/items/v2/itemdetails'
 urlPI = f'https://inventory.roblox.com/v1/users/{PlayerId}/assets/collectibles?limit=100&sortOrder=Asc'
@@ -58,27 +59,26 @@ while True:
     res_IL = responseIL.json()
     if AutoPick == True:
 
-        Nothold=[]
-        item_values=[]
+        NotOnthold=[]
+        ItemValues=[]
 
         dataIH = res_PI.get("data", [])
-        for itemHOLD in dataIH:
-            ItemID = itemHOLD.get("assetId")
-            if itemHOLD.get("isOnHold") is False:
-                Nothold.append(ItemID)
+        for ItemsHold in dataIH:
+            ItemID = ItemsHold.get("assetId")
+            if ItemsHold.get("isOnHold") is False:
+                NotOnthold.append(ItemID)
 
-        for item in Nothold:
+        for item in NotOnthold:
             if item in NotForTrade:
                 continue
             item_str = str(item)
             item_data = res_IL["items"].get(item_str)
             if item_data:
                 value=item_data[4]
-                item_values.append((item, value))
-        AutopickFinalList = sorted(item_values, key=lambda x: x[1], reverse=True)[:4]
-        AutopickFinalList = [item_id for item_id, _ in AutopickFinalList]
+                ItemValues.append((item, value))
+        AutopickFinalList = [item_id for item_id, _ in sorted(ItemValues, key=lambda x: x[1], reverse=True)[:4]]
 
-        dataAuto = {
+        dataAutoPick = {
             "offer_item_ids": AutopickFinalList,
             "offer_robux": Robux,
             "player_id": PlayerId,
@@ -86,7 +86,7 @@ while True:
             "request_tags": Tags
         }
 
-        responseTA = requests.post(urlTA, json=dataAuto, headers=headers)            
+        responseTA = requests.post(urlTA, json=dataAutoPick, headers=headers)            
         print("🤖 Auto Pick! 🤖")
 
     if AutoPick == False:
@@ -98,9 +98,7 @@ while True:
         print("💲 Offered Robux:", Robux)
         TotalValue = 0
         TotalRap = 0
-        responseIL = requests.get(urlIL)
-        res_IL = responseIL.json()
-        item_details = []
+        Items = []
 
         if AutoPick == False:
             for item_id in OfferedItems:
@@ -110,9 +108,9 @@ while True:
                     TotalValue += item_data[4]
                     TotalRap += item_data[2]
                     if item_data[1] == "":
-                        item_details.append(f"- {item_data[0]} Item Value: {item_data[4]}")
+                        Items.append(f"- {item_data[0]} Item Value: {item_data[4]}")
                     else:
-                        item_details.append(f"- ({item_data[1]}) {item_data[0]}. Item Value: {item_data[4]}")
+                        Items.append(f"- ({item_data[1]}) {item_data[0]}. Item Value: {item_data[4]}")
 
         if AutoPick == True:
             for item_id in AutopickFinalList:
@@ -122,15 +120,15 @@ while True:
                     TotalValue += item_data[4]
                     TotalRap += item_data[2]
                     if item_data[1] == "":
-                        item_details.append(f"- {item_data[0]} Item Value: {item_data[4]}")
+                        Items.append(f"- {item_data[0]} Item Value: {item_data[4]}")
                     else:
-                        item_details.append(f"- ({item_data[1]}) {item_data[0]}. Item Value: {item_data[4]}")
+                        Items.append(f"- ({item_data[1]}) {item_data[0]}. Item Value: {item_data[4]}")
 
         print("📊 Total Value: ", TotalValue)
         print("📊 Total RAP: ", TotalRap)
 
         print("🔍 Offered Items:")
-        for line in item_details:
+        for line in Items:
             print(line)
 
         now = datetime.now()
