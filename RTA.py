@@ -19,7 +19,7 @@ NotForTrade = [21070012,21070012,21070012] #Items that wont appear in Trade Ads 
 OfferedItems = []
 
 #Trade Ad options
-Robux = 67893
+Robux = 0
 RequestedItems = []
 PlayerId = 1067821187
 Tags=["upgrade", "downgrade", "demand", "robux"]
