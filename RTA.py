@@ -35,9 +35,6 @@ urlTA = 'https://api.rolimons.com/tradeads/v1/createad'
 urlIL = 'https://api.rolimons.com/items/v2/itemdetails'
 urlPI = f'https://inventory.roblox.com/v1/users/{PlayerId}/assets/collectibles?limit=100&sortOrder=Asc'
 
-responsePI = requests.get(urlPI)
-res_PI = responsePI.json()
-
 
 data = {
     "offer_item_ids": OfferedItems,
@@ -56,6 +53,8 @@ headers = {
 }
 
 while True:
+    responsePI = requests.get(urlPI)
+    res_PI = responsePI.json()
     responseIL = requests.get(urlIL)
     res_IL = responseIL.json()
     if AutoPick == True:
@@ -120,11 +119,9 @@ while True:
 
         print("📊 Total Value: ", TotalValue)
         print("📊 Total RAP: ", TotalRap)
-        print("💲 Offered Robux:", Robux)
         
         if RequestedItems:
             ReqItems = []
-            print("🔍 Requested Items:")
             for line in RequestedItems:
                 item_str = str(line)
                 item_data = res_IL["items"].get(item_str)
@@ -133,12 +130,13 @@ while True:
                 else:
                     ReqItems.append(f"- ({item_data[1]}) {item_data[0]} | Item Value: {item_data[4]}")
 
+            print("🔍 Requested Items:")
             for line in ReqItems:
                 print(line)
 
         if Tags:
             print("🔍 Tags:")
-            for line in Tags:
+            for line in Tags:   #"adds", "upgrade", "downgrade", "any", "wishlist", "demand", "rares", "rap", "robux", "projecteds"
                 if line == "adds":
                     print("- ➕ Adds")
                 if line == "upgrade":
@@ -160,6 +158,9 @@ while True:
                 if line == "projecteds":
                     print("- ⚠️ projecteds")
                    
+        if Robux > 0:
+            print("💲 Offered Robux:", Robux)
+
         print("📜 Offered Items:")
         for line in OffItems:
             print(line)
