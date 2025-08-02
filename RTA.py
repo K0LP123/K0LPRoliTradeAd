@@ -31,7 +31,6 @@ Time=1500 #1500 seconds is 25 minutes (57,6 trade ads a day). Everyday you can p
 #CONFIG
 #CONFIG
 
-
 urlTA = 'https://api.rolimons.com/tradeads/v1/createad'
 urlIL = 'https://api.rolimons.com/items/v2/itemdetails'
 urlPI = f'https://inventory.roblox.com/v1/users/{PlayerId}/assets/collectibles?limit=100&sortOrder=Asc'
@@ -48,11 +47,13 @@ data = {
     "request_tags": Tags
 }
 
+if Robux == 0:
+    del data["offer_robux"]
+
 headers = {
     "content-type": "application/json",
     "cookie": "_RoliVerification=" + RolimonsToken
 }
-
 
 while True:
     responseIL = requests.get(urlIL)
@@ -78,27 +79,20 @@ while True:
                 ItemValues.append((item, value))
         AutopickFinalList = [item_id for item_id, _ in sorted(ItemValues, key=lambda x: x[1], reverse=True)[:4]]
 
-        dataAutoPick = {
-            "offer_item_ids": AutopickFinalList,
-            "offer_robux": Robux,
-            "player_id": PlayerId,
-            "request_item_ids": RequestedItems,
-            "request_tags": Tags
-        }
+        data["offer_item_ids"] = AutopickFinalList
 
-        responseTA = requests.post(urlTA, json=dataAutoPick, headers=headers)            
+        responseTA = requests.post(urlTA, json=data, headers=headers)            
         print("🤖 Auto Pick! 🤖")
 
-    if AutoPick == False:
+    elif AutoPick == False:
         responseTA = requests.post(urlTA, json=data, headers=headers)
 
     res_TA = responseTA.json()
     if res_TA.get("success") == True:
         print("✅ Trade ad Posted!✅")
-        print("💲 Offered Robux:", Robux)
         TotalValue = 0
         TotalRap = 0
-        Items = []
+        OffItems = []
 
         if AutoPick == False:
             for item_id in OfferedItems:
@@ -108,11 +102,11 @@ while True:
                     TotalValue += item_data[4]
                     TotalRap += item_data[2]
                     if item_data[1] == "":
-                        Items.append(f"- {item_data[0]} Item Value: {item_data[4]}")
+                        OffItems.append(f"- {item_data[0]} Item Value: {item_data[4]}")
                     else:
-                        Items.append(f"- ({item_data[1]}) {item_data[0]}. Item Value: {item_data[4]}")
+                        OffItems.append(f"- ({item_data[1]}) {item_data[0]}. Item Value: {item_data[4]}")
 
-        if AutoPick == True:
+        elif AutoPick == True:
             for item_id in AutopickFinalList:
                 item_str = str(item_id)
                 item_data = res_IL["items"].get(item_str)
@@ -120,17 +114,56 @@ while True:
                     TotalValue += item_data[4]
                     TotalRap += item_data[2]
                     if item_data[1] == "":
-                        Items.append(f"- {item_data[0]} Item Value: {item_data[4]}")
+                        OffItems.append(f"- {item_data[0]} | Item Value: {item_data[4]}")
                     else:
-                        Items.append(f"- ({item_data[1]}) {item_data[0]}. Item Value: {item_data[4]}")
+                        OffItems.append(f"- ({item_data[1]}) {item_data[0]} | Item Value: {item_data[4]}")
 
         print("📊 Total Value: ", TotalValue)
         print("📊 Total RAP: ", TotalRap)
+        print("💲 Offered Robux:", Robux)
+        
+        if RequestedItems:
+            ReqItems = []
+            print("🔍 Requested Items:")
+            for line in RequestedItems:
+                item_str = str(line)
+                item_data = res_IL["items"].get(item_str)
+                if item_data[1] == "":
+                    ReqItems.append(f"- {item_data[0]} | Item Value: {item_data[4]}")
+                else:
+                    ReqItems.append(f"- ({item_data[1]}) {item_data[0]} | Item Value: {item_data[4]}")
 
-        print("🔍 Offered Items:")
-        for line in Items:
+            for line in ReqItems:
+                print(line)
+
+        if Tags:
+            print("🔍 Tags:")
+            for line in Tags:
+                if line == "adds":
+                    print("- ➕ Adds")
+                if line == "upgrade":
+                    print("- 📈 Upgrade")
+                if line == "downgrade":
+                    print("- 📉 Downgrade")
+                if line == "any":
+                    print("- 📊 any")
+                if line == "wishlist":
+                    print("- 🗄️ wishlist")
+                if line == "demand":
+                    print("- 📊 demand")
+                if line == "rares":
+                    print("- 💎 rares")
+                if line == "rap":
+                    print("- 📊 rap")
+                if line == "robux":
+                    print("- 💲 robux")
+                if line == "projecteds":
+                    print("- ⚠️ projecteds")
+                   
+        print("📜 Offered Items:")
+        for line in OffItems:
             print(line)
-
+            
         now = datetime.now()
         future_time = now + timedelta(seconds=Time)
         print("🕒 Next Trade Ad will be posted in:", Time / 60, "minutes", "Aka:", future_time.strftime("%H:%M"),"\n")
@@ -150,7 +183,7 @@ while True:
                 item_data = res_IL["items"].get(item_str)
                 if item_data:
                     TotalRap += item_data[2]
-        if AutoPick == True:
+        elif AutoPick == True:
             for item_id in AutopickFinalList:
                 item_str = str(item_id)
                 item_data = res_IL["items"].get(item_str)
