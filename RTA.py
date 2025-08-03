@@ -13,7 +13,7 @@ RolimonsToken = 'Paste your _RoliVerification= here'
 
 #AutoPick
 AutoPick = True #True/False -- Picks top 4 of your items
-NotForTrade = [21070012,21070012,21070012] #Items that wont appear in Trade Ads if you use AutoPick
+NotForTrade = [] #Items that wont appear in Trade Ads if you use AutoPick
 
 #Manually set your items
 OfferedItems = []
