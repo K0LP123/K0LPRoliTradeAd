@@ -1,5 +1,4 @@
 <h1>Rolimons Trade Ad script</h1>
-<h2>THIS PROJECT IS CURRENTLY WORKED ON. IF YOU DOWNLOAD IT PLZ CHECK THIS GITHUB PAGE IN A WEEK OR MORE :D </h2>
 <img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/7bcb1170-d838-474f-a056-b77818695251" />
 <br>
 <h1>Has 2 modes:</h1>
