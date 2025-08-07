@@ -12,18 +12,19 @@ from datetime import datetime, timedelta
 RolimonsToken = 'Paste your _RoliVerification= here'
 
 #AutoPick
-AutoPick = True #True/False -- Picks top 4 of your items
+Top4 = True #True/False -- Picks top 4 of your items that arent in NotForTrade
+AutoPick = False #True/False -- Picks random 4 items from your inventory that are over Minvalue and arent in NotForTrade
+Minvalue = 10000 #Minimum value of items in Autopick
 NotForTrade = [] #Items that wont appear in Trade Ads if you use AutoPick
 
 #Manually set your items
-OfferedItems = []
+OfferedItems = [] 
 
 #Trade Ad options
 Robux = 0
 RequestedItems = []
 PlayerId = 1067821187
-Tags=["upgrade", "downgrade", "demand", "robux"]
-   #"adds", "upgrade", "downgrade", "any", "wishlist", "demand", "rares", "rap", "robux", "projecteds"
+Tags=["upgrade", "downgrade", "demand", "robux"] #"adds", "upgrade", "downgrade", "any", "wishlist", "demand", "rares", "rap", "robux", "projecteds"
 
 #Time
 Time=1500 #1500 seconds is 25 minutes (57,6 trade ads a day). Everyday you can post 60 trade ads so if you want it to run 24/7 I wouldnt set it lower than 1440
@@ -34,7 +35,6 @@ Time=1500 #1500 seconds is 25 minutes (57,6 trade ads a day). Everyday you can p
 urlTA = 'https://api.rolimons.com/tradeads/v1/createad'
 urlIL = 'https://api.rolimons.com/items/v2/itemdetails'
 urlPI = f'https://inventory.roblox.com/v1/users/{PlayerId}/assets/collectibles?limit=100&sortOrder=Asc'
-
 
 data = {
     "offer_item_ids": OfferedItems,
@@ -57,11 +57,9 @@ while True:
     res_PI = responsePI.json()
     responseIL = requests.get(urlIL)
     res_IL = responseIL.json()
-    if AutoPick == True:
-
-        NotOnthold=[]
-        ItemValues=[]
-
+    NotOnthold=[]
+    ItemValues=[]
+    if Top4:
         dataIH = res_PI.get("data", [])
         for ItemsHold in dataIH:
             ItemID = ItemsHold.get("assetId")
@@ -76,14 +74,37 @@ while True:
             if item_data:
                 value=item_data[4]
                 ItemValues.append((item, value))
-        AutopickFinalList = [item_id for item_id, _ in sorted(ItemValues, key=lambda x: x[1], reverse=True)[:4]]
+        Top4List = [item_id for item_id, _ in sorted(ItemValues, key=lambda x: x[1], reverse=True)[:4]]
 
-        data["offer_item_ids"] = AutopickFinalList
+        data["offer_item_ids"] = Top4List
+        responseTA = requests.post(urlTA, json=data, headers=headers)
 
-        responseTA = requests.post(urlTA, json=data, headers=headers)            
+        print("🤖 Top4 Pick! 🤖")
+
+    if AutoPick:
+        dataIH = res_PI.get("data", [])
+        for ItemsHold in dataIH:
+            ItemID = ItemsHold.get("assetId")
+            if ItemsHold.get("isOnHold") is False:
+                NotOnthold.append(ItemID)
+
+        for item in NotOnthold:
+            if item in NotForTrade:
+                continue
+            item_str = str(item)
+            item_data = res_IL["items"].get(item_str)
+            if item_data:
+                value=item_data[4]
+                if value >= Minvalue:
+                    ItemValues.append((item, value))
+        AutoPickList = [item_id for item_id, _ in sorted(random.sample(ItemValues, 4), key=lambda x: x[1], reverse=True)]
+
+        data["offer_item_ids"] = AutoPickList
         print("🤖 Auto Pick! 🤖")
+        responseTA = requests.post(urlTA, json=data, headers=headers)
 
-    elif AutoPick == False:
+    elif Top4 == False and AutoPick == False:
+        print("🧑 Manual Pick 🧑")
         responseTA = requests.post(urlTA, json=data, headers=headers)
 
     res_TA = responseTA.json()
@@ -93,7 +114,7 @@ while True:
         TotalRap = 0
         OffItems = []
 
-        if AutoPick == False:
+        if Top4 == False and AutoPick == False:
             for item_id in OfferedItems:
                 item_str = str(item_id)
                 item_data = res_IL["items"].get(item_str)
@@ -105,8 +126,20 @@ while True:
                     else:
                         OffItems.append(f"- ({item_data[1]}) {item_data[0]}. Item Value: {item_data[4]}")
 
-        elif AutoPick == True:
-            for item_id in AutopickFinalList:
+        elif Top4:
+            for item_id in Top4List:
+                item_str = str(item_id)
+                item_data = res_IL["items"].get(item_str)
+                if item_data:
+                    TotalValue += item_data[4]
+                    TotalRap += item_data[2]
+                    if item_data[1] == "":
+                        OffItems.append(f"- {item_data[0]} | Item Value: {item_data[4]}")
+                    else:
+                        OffItems.append(f"- ({item_data[1]}) {item_data[0]} | Item Value: {item_data[4]}")
+
+        elif AutoPick:
+            for item_id in AutoPickList:
                 item_str = str(item_id)
                 item_data = res_IL["items"].get(item_str)
                 if item_data:
@@ -178,14 +211,14 @@ while True:
     elif res_TA.get("code") == 7110:
         TotalRap = 0
         res_IL = requests.get(urlIL).json()
-        if AutoPick == False:
+        if Top4 == False:
             for item_id in OfferedItems:
                 item_str = str(item_id)
                 item_data = res_IL["items"].get(item_str)
                 if item_data:
                     TotalRap += item_data[2]
-        elif AutoPick == True:
-            for item_id in AutopickFinalList:
+        elif Top4 == True:
+            for item_id in Top4List:
                 item_str = str(item_id)
                 item_data = res_IL["items"].get(item_str)
                 if item_data:
@@ -205,6 +238,9 @@ while True:
         
     elif res_TA.get("code") == 7104:
         print("❌ Player does not own all offered items! ❌")
+
+    elif res_TA.get("code") == 7111:
+        print("❌ Value of items on Requested side exceed value of items on Offered side! (Change requested items) ❌")
 
     else:
         print("❌ Something is not working! ❌")
