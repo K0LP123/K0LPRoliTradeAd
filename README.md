@@ -1,7 +1,8 @@
 <h1>Rolimons Trade Ad script</h1>
 <img width="600" height="300" src="https://github.com/user-attachments/assets/d4cdd4ca-b130-41c5-9b7d-d3f94670211c" /><br>
 <h1>Has 2 modes:</h1>
-🦾 Auto pick (Automatically picks top 4 of your items that arent on hold and arent in NotForTrade config)<br>
+🦾 Top 4 pick (Automatically picks top 4 of your items that arent on hold and arent in NotForTrade config)<br>
+🦾 Auto pick (Automatically picks random 4 items from your inventory that arent on hold, arent in Minvalue, and arent in NotForTrade)<br>
 💪 Manual pick (You pick your items)<br>
 <h3>You need to download:<br></h3>
 -Python<br>
