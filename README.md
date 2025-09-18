@@ -1,4 +1,5 @@
 <h1>Rolimons Trade Ad script</h1>
+Discord bot and new settings are in the works
 <img width="600" height="300" src="https://github.com/user-attachments/assets/d4cdd4ca-b130-41c5-9b7d-d3f94670211c" /><br>
 <h1>Has 3 modes:</h1>
 🦾 Top 4 pick (Automatically picks top 4 of your items that arent on hold and arent in NotForTrade config)<br>
