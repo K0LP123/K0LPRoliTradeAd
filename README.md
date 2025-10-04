@@ -1,5 +1,5 @@
 <h1>Rolimons Trade Ad Bot</h1>
-<a style="color: red;">Discord bot is in the works and is almost finished. Publishing soon hopefully :D</a> <br> <br>
+<a href="#" style="color: red;">Discord bot is in the works and is almost finished. Publishing soon hopefully :D</a> <br> <br>
 <img width="600" height="300" src="https://github.com/user-attachments/assets/d4cdd4ca-b130-41c5-9b7d-d3f94670211c" /><br>
 <h1>Has 3 modes:</h1>
 🦾 Top 4 pick (Automatically picks top 4 of your items that arent on hold and arent in NotForTrade config)<br>
