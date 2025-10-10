@@ -1,0 +1,41 @@
+{
+    "TOKEN": "",
+    "RolimonsToken": "",
+    "PlayerID": 1067821187,
+    "DiscordChannel": 0,
+    "AutoPick": "false",
+    "DemandOnly": "false",
+    "Top4": "true",
+    "TagsReset": 0,
+    "Time": 1500,
+    "MinValue": 0,
+    "Robux": 0,
+    "NotForTrade": [
+    ],
+    "OfferedItems": [],
+    "RequestedItems": [],
+    "Tags": [
+        "upgrade",
+        "downgrade",
+        "demand",
+        "robux"
+    ],
+    "default": [
+        "upgrade",
+        "downgrade",
+        "demand",
+        "rap"
+    ],
+    "adds1": [
+        "upgrade",
+        "downgrade",
+        "adds"
+    ],
+    "adds2": [
+        "adds",
+        "any"
+    ],
+    "adds3": [
+        "adds"
+    ]
+}
