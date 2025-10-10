@@ -1,7 +1,7 @@
 <h1>Rolimons Trade Ad Bot</h1>
 Discord bot thats publishing Rolimons trade ads
 <h2>Documenation in the works</h2> <br>There are probably still some bugs and updates/fixes will be released<br>
-Use `!help` for list of all commands.
+Use <b>!help</b> for list of all commands.
 <h2>❗Before using it set your Rolimon Token and configure the config❗</h2>
 To get your _RoliVerification= you need Cookie editor addon like this: <br>
 https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm <br>
